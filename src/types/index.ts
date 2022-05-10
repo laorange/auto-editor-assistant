@@ -22,6 +22,9 @@ export interface Language {
 
     noticeToEnterFileName: string,
 
+    chooseFileText: string,
+    chooseFileTip: string,
+
     exportModeDescription: strKeyObj
 
     [key: string]: string | strKeyObj

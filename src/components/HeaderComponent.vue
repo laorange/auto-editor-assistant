@@ -1,15 +1,16 @@
 <script setup lang="ts">
-function openNewWindow(url: string) {
-  window.open(url);
-}
+import {useI18n} from "vue-i18n";
+
+const {t, locale} = useI18n()
 </script>
 
 <template>
   <header>
-    <img src="../assets/auto-editor_banner.png" alt="auto-editor_banner.png"
-         class="auto-editor-banner" @click="openNewWindow('https://auto-editor.com/')"/>
+    <h1>
+      <a href="https://auto-editor.com/"><span id="header-span-auto">Auto</span>-<span id="header-span-editor">Editor</span></a>-{{ t("title") }}
+    </h1>
     <img src="../assets/switchLanguage.svg" alt="switchLanguage.svg" id="switch-language-svg"
-         @click="$i18n.locale=$i18n.locale==='zh'?'en':'zh'"/>
+         @click="locale = locale==='zh' ? 'en' : 'zh'"/>
   </header>
 </template>
 
@@ -21,18 +22,18 @@ header {
   flex-wrap: wrap;
 }
 
-.auto-editor-banner {
-  max-width: 400px;
-  width: 100%;
-  cursor: pointer;
-}
-
 #switch-language-svg {
-  height: 50px;
+  height: 30px;
   cursor: pointer;
+  margin-left: 20px;
+  justify-self: end;
 }
 
-img + img {
-  margin-left: 50px;
+#header-span-auto {
+  color: #3b8eda;
+}
+
+#header-span-editor {
+  color: #64c2f8;
 }
 </style>

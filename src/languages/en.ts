@@ -1,7 +1,7 @@
 import {Language} from "../types";
 
 const en: Language = {
-    title: "Auto-Editor-Assistant",
+    title: "Assistant",
     filePathKeyDesc: "Path of directory",
     filePathValueDesc: "Name of your video file",
     frameMargin: `Frame margin ("silent" frames on either side of the "loud" sections)`,
@@ -14,6 +14,9 @@ const en: Language = {
     copySuccessfully: "copy successfully",
 
     noticeToEnterFileName: "Please enter file name",
+
+    chooseFileText: "Drop file here / click to choose",
+    chooseFileTip: "Due to security restrictions, your file will not be uploaded. Therefore, only the name of the file can be obtained",
 
     exportModeDescription: {
         default: "single video",
