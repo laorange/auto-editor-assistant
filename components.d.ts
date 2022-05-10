@@ -20,7 +20,9 @@ declare module '@vue/runtime-core' {
     MainBody: typeof import('./src/components/MainBody.vue')['default']
     NCode: typeof import('naive-ui')['NCode']
     NDynamicInput: typeof import('naive-ui')['NDynamicInput']
+    NInputNumber: typeof import('naive-ui')['NInputNumber']
     NPopover: typeof import('naive-ui')['NPopover']
+    NSelect: typeof import('naive-ui')['NSelect']
   }
 }
 

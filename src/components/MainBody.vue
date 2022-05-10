@@ -1,20 +1,46 @@
 <script setup lang="ts">
 import {useStore} from "../store";
+import {Pointer} from "@element-plus/icons-vue"
+import ClipboardJS from "clipboard";
+import {UploadRawFile} from "element-plus";
+import {computed} from "vue";
+import {useI18n} from "vue-i18n";
 
 const store = useStore()
-
-import {useI18n} from "vue-i18n";
 
 const {t} = useI18n()
 
 
-// ---
-
-import ClipboardJS from "clipboard";
-import {Pointer} from "@element-plus/icons-vue"
-import {UploadRawFile} from "element-plus";
-
 new ClipboardJS('#copy-button');
+
+
+const exportModeOptions = computed(() => [
+  {
+    label: t('exportModeDescription.default'),
+    value: 'default',
+  },
+  {
+    label: t('exportModeDescription.premiere'),
+    value: "premiere"
+  },
+  {
+    label: t('exportModeDescription.final-cut-pro'),
+    value: "final-cut-pro"
+  },
+  {
+    label: t('exportModeDescription.shotcut'),
+    value: "shotcut"
+  },
+  {
+    label: t('exportModeDescription.json'),
+    value: "json"
+  },
+  {
+    label: t('exportModeDescription.clip-sequence'),
+    value: "clip-sequence"
+  },
+])
+
 
 function beforeUpload(rawFile: UploadRawFile) {
   for (const filePath of store.filePaths) {
@@ -72,14 +98,7 @@ function beforeUpload(rawFile: UploadRawFile) {
       </el-form-item>
 
       <el-form-item :label="t('exportMode')">
-        <el-select v-model="store.formData.exportMode">
-          <el-option :label="t('exportModeDescription.default')" value="default"/>
-          <el-option :label="t('exportModeDescription.premiere')" value="premiere"/>
-          <el-option :label="t('exportModeDescription.final-cut-pro')" value="final-cut-pro"/>
-          <el-option :label="t('exportModeDescription.shotcut')" value="shotcut"/>
-          <el-option :label="t('exportModeDescription.json')" value="json"/>
-          <el-option :label="t('exportModeDescription.clip-sequence')" value="clip-sequence"/>
-        </el-select>
+        <n-select v-model:value="store.formData.exportMode" :options="exportModeOptions"/>
       </el-form-item>
 
       <el-form-item :label="t('whetherOpenAfterFinished')">
