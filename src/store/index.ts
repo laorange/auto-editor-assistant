@@ -10,6 +10,7 @@ type State = {
         silentThreshold: number,
         motionThreshold: number,
         whetherOpenAfterFinished: boolean,
+        whetherUseGpuAcceleration: boolean,
     }
 }
 
@@ -49,7 +50,8 @@ export const useStore = defineStore('store', {
                 exportMode: "premiere",
                 silentThreshold: 4,
                 motionThreshold: 0,
-                whetherOpenAfterFinished: false
+                whetherOpenAfterFinished: false,
+                whetherUseGpuAcceleration: true,
             },
         }
     },
@@ -96,6 +98,9 @@ export const useStore = defineStore('store', {
         noOpenCmd(): string {
             return !this.formData.whetherOpenAfterFinished ? "--no-open" : ""
         },
+        useGpuAccelerationCmd():string{
+            return !!this.formData.whetherUseGpuAcceleration ? "--my-ffmpeg" : ""
+        },
         videoQualityScaleCmd() {
             return "--video-quality-scale 1"
         },
@@ -108,6 +113,7 @@ export const useStore = defineStore('store', {
             cmdList.push(this.exportModeCmd)
             cmdList.push(this.videoQualityScaleCmd)
             cmdList.push(this.noOpenCmd)
+            cmdList.push(this.useGpuAccelerationCmd)
 
             return cmdList.reduce((r: string[], cmd) => {
                 if (cmd.length) r.push(cmd)

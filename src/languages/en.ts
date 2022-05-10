@@ -8,7 +8,8 @@ const en: Language = {
     exportMode: `Choose the export mode`,
     silentThreshold: "Threshold of audio(%)",
     motionThreshold: "Threshold of motion(%)",
-    whetherOpenAfterFinished: "whether open the file after editing is done",
+    whetherOpenAfterFinished: "open the file after editing is done",
+    whetherUseGpuAcceleration: "use GPU acceleration",
     copyButtonText: "copy the command to clipboard",
     copySuccessfully: "copy successfully",
 

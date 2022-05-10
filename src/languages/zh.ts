@@ -9,6 +9,7 @@ const zh: Language = {
     silentThreshold: "音量阈值(%)",
     motionThreshold: "动画阈值(%)",
     whetherOpenAfterFinished: "是否在生成结束后打开文件",
+    whetherUseGpuAcceleration: "是否使用GPU加速",
     copyButtonText: "复制指令到剪贴板",
     copySuccessfully: "复制成功",
 

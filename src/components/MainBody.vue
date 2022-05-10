@@ -45,6 +45,9 @@ new ClipboardJS('#copy-button');
       <el-form-item :label="$t('whetherOpenAfterFinished')">
         <el-switch v-model="store.formData.whetherOpenAfterFinished"/>
       </el-form-item>
+      <el-form-item :label="$t('whetherUseGpuAcceleration')">
+        <el-switch v-model="store.formData.whetherUseGpuAcceleration"/>
+      </el-form-item>
     </el-form>
 
     <n-code id="cmd" v-show="store.whetherFilePathIsValid">{{ store.command }}</n-code>
