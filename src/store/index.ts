@@ -30,7 +30,14 @@ function joinFilePath(filePath: FilePath) {
         value += '.mp4'
     }
 
-    return `${key}${value}`
+    let path = `${key}${value}`
+
+    // 如果路径中有空格，需要对路径加引号
+    if (key.search(/\s/) > -1 || value.search(/\s/) > -1) {
+        path = `"${path}"`
+    }
+
+    return path;
 }
 
 export const useStore = defineStore('store', {
@@ -48,7 +55,18 @@ export const useStore = defineStore('store', {
     },
     getters: {
         inputFilesCmd(): string {
-            return this.filePaths.map(fp => joinFilePath(fp)).join(" ")
+            let processedFilePathStrArray: string[] = []
+
+            this.filePaths.reduce((lastOne: undefined | FilePath, thisOne) => {
+                // 如果上一条有文件夹路径，这条有文件名但没文件夹路径，那这条的文件夹路径沿用上一条的
+                if (lastOne?.key && !thisOne.key && thisOne.value) {
+                    thisOne.key = lastOne.key
+                }
+                processedFilePathStrArray.push(joinFilePath(thisOne))
+                return thisOne
+            }, undefined)
+
+            return processedFilePathStrArray.join(" ")
         },
         whetherFilePathIsValid(): boolean {
             for (const filePath of this.filePaths) {
