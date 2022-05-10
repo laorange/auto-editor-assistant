@@ -8,7 +8,13 @@ You can use it through this site: https://laorange.github.io/auto-editor-assista
 
 ----
 
-Options:
+Here’s [Auto-Editor](https://auto-editor.com/) 😍
+
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=WyattBlue&repo=auto-editor)](https://github.com/WyattBlue/auto-editor)
+
+It’s so powerful with so many options, that also means it’s hard to remember them. 
+
+You can choose these Auto-Editor's options with this repo’s site:
 
 + inputted file path
 + frame margin
