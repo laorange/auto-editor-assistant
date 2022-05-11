@@ -12,8 +12,8 @@ app.use(createPinia())
 
 app.use(createI18n({
     legacy: false,
-    locale: "zh",
-    fallbackLocale: "English",
+    locale: "en",
+    fallbackLocale: "zh",
     messages: languages
 }))
 // endregion

@@ -3,7 +3,7 @@ import {Language} from "../types";
 const en: Language = {
     title: "Assistant",
     filePathKeyDesc: "Path of directory",
-    filePathValueDesc: "Name of your video file",
+    filePathValueDesc: "File name",
     frameMargin: `Frame margin ("silent" frames on either side of the "loud" sections)`,
     exportMode: `Choose the export mode`,
     silentThreshold: "Threshold of audio(%)",
@@ -13,7 +13,7 @@ const en: Language = {
     copyButtonText: "copy the command to clipboard",
     copySuccessfully: "copy successfully",
 
-    noticeToEnterFileName: "Please enter file name",
+    noticeToEnterFileName: `Please enter "file name"`,
 
     chooseFileText: "Drop file here / click to choose",
     chooseFileTip: "Due to security restrictions, your file will not be uploaded. Therefore, only the name of the file can be obtained",

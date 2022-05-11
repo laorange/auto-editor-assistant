@@ -7,7 +7,7 @@ const {t, locale} = useI18n()
 <template>
   <header>
     <h1>
-      <a href="https://auto-editor.com/"><span id="header-span-auto">Auto</span>-<span id="header-span-editor">Editor</span></a>-{{ t("title") }}
+      <a href="https://auto-editor.com/"><span id="header-span-auto">Auto</span><span id="header-span-editor">-Editor</span></a>-{{ t("title") }}
     </h1>
     <img src="../assets/switchLanguage.svg" alt="switchLanguage.svg" id="switch-language-svg"
          @click="locale = locale==='zh' ? 'en' : 'zh'"/>
@@ -31,9 +31,11 @@ header {
 
 #header-span-auto {
   color: #3b8eda;
+  text-decoration: underline #3b8eda;
 }
 
 #header-span-editor {
   color: #64c2f8;
+  text-decoration: underline #64c2f8;
 }
 </style>

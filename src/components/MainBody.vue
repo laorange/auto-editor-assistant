@@ -84,9 +84,11 @@ function beforeUpload(rawFile: UploadRawFile) {
         :min="1"
     />
 
+    <el-divider />
+
     <el-form :model="store.formData">
-      <el-form-item :label="t('frameMargin')">
-        <el-input-number v-model="store.formData.frameMargin" :min="1"/>
+      <el-form-item :label="t('exportMode')">
+        <n-select v-model:value="store.formData.exportMode" :options="exportModeOptions"/>
       </el-form-item>
 
       <el-form-item :label="t('silentThreshold')">
@@ -97,8 +99,8 @@ function beforeUpload(rawFile: UploadRawFile) {
         <el-slider v-model="store.formData.motionThreshold" show-input/>
       </el-form-item>
 
-      <el-form-item :label="t('exportMode')">
-        <n-select v-model:value="store.formData.exportMode" :options="exportModeOptions"/>
+      <el-form-item :label="t('frameMargin')">
+        <el-input-number v-model="store.formData.frameMargin" :min="0"/>
       </el-form-item>
 
       <el-form-item :label="t('whetherOpenAfterFinished')">
