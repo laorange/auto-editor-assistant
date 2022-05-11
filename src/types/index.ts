@@ -16,10 +16,14 @@ export interface Language {
     silentThreshold: string,
     motionThreshold: string,
     whetherOpenAfterFinished: string,
+    whetherUseGpuAcceleration: string,
     copyButtonText: string,
     copySuccessfully: string,
 
     noticeToEnterFileName: string,
+
+    chooseFileText: string,
+    chooseFileTip: string,
 
     exportModeDescription: strKeyObj
 

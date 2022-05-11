@@ -11,8 +11,9 @@ import {languages} from "./languages";
 app.use(createPinia())
 
 app.use(createI18n({
-    locale: "zh",
-    fallbackLocale: "English",
+    legacy: false,
+    locale: "en",
+    fallbackLocale: "zh",
     messages: languages
 }))
 // endregion

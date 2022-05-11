@@ -1,18 +1,22 @@
 import {Language} from "../types";
 
 const en: Language = {
-    title: "Auto-Editor-Assistant",
+    title: "Assistant",
     filePathKeyDesc: "Path of directory",
-    filePathValueDesc: "Name of your video file",
+    filePathValueDesc: "File name",
     frameMargin: `Frame margin ("silent" frames on either side of the "loud" sections)`,
     exportMode: `Choose the export mode`,
     silentThreshold: "Threshold of audio(%)",
     motionThreshold: "Threshold of motion(%)",
-    whetherOpenAfterFinished: "whether open the file after editing is done",
+    whetherOpenAfterFinished: "open the file after editing is done",
+    whetherUseGpuAcceleration: "use GPU acceleration",
     copyButtonText: "copy the command to clipboard",
     copySuccessfully: "copy successfully",
 
-    noticeToEnterFileName: "Please enter file name",
+    noticeToEnterFileName: `Please enter "file name"`,
+
+    chooseFileText: "Drop file here / click to choose",
+    chooseFileTip: "Due to security restrictions, your file will not be uploaded. Therefore, only the name of the file can be obtained",
 
     exportModeDescription: {
         default: "single video",

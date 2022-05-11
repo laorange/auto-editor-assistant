@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import MainBody from "./components/MainBody.vue";
 import HeaderComponent from "./components/HeaderComponent.vue";
+import FooterComponent from "./components/FooterComponent.vue";
 
 </script>
 
 <template>
   <header-component></header-component>
   <main-body></main-body>
+  <footer-component></footer-component>
 </template>
 
 <style>
