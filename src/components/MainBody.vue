@@ -1,58 +1,67 @@
 <script setup lang="ts">
 import {useStore} from "../store";
-import {Pointer} from "@element-plus/icons-vue"
+import {Pointer} from "@element-plus/icons-vue";
 import ClipboardJS from "clipboard";
 import {UploadRawFile} from "element-plus";
 import {computed} from "vue";
 import {useI18n} from "vue-i18n";
 
-const store = useStore()
+const store = useStore();
 
-const {t} = useI18n()
+const {t} = useI18n({
+  messages: {
+    zh: {
+      toAddNewFile: "新增文件",
+    },
+    en: {
+      toAddNewFile: "Add new file",
+    },
+  },
+});
 
 
-new ClipboardJS('#copy-button');
+new ClipboardJS("#copy-button");
 
 
 const exportModeOptions = computed(() => [
   {
-    label: t('exportModeDescription.default'),
-    value: 'default',
+    label: t("exportModeDescription.default"),
+    value: "default",
   },
   {
-    label: t('exportModeDescription.premiere'),
-    value: "premiere"
+    label: t("exportModeDescription.premiere"),
+    value: "premiere",
   },
   {
-    label: t('exportModeDescription.final-cut-pro'),
-    value: "final-cut-pro"
+    label: t("exportModeDescription.final-cut-pro"),
+    value: "final-cut-pro",
   },
   {
-    label: t('exportModeDescription.shotcut'),
-    value: "shotcut"
+    label: t("exportModeDescription.shotcut"),
+    value: "shotcut",
   },
   {
-    label: t('exportModeDescription.json'),
-    value: "json"
+    label: t("exportModeDescription.json"),
+    value: "json",
   },
   {
-    label: t('exportModeDescription.clip-sequence'),
-    value: "clip-sequence"
+    label: t("exportModeDescription.clip-sequence"),
+    value: "clip-sequence",
   },
-])
+]);
 
 
 function beforeUpload(rawFile: UploadRawFile) {
   for (const filePath of store.filePaths) {
     // 有坑就填上
     if (!filePath.key && !filePath.value) {
-      filePath.value = rawFile.name
-      return false
+      filePath.value = rawFile.name;
+      return false;
     }
   }
   // 没坑就加一个
-  store.filePaths.push({key: "", value: rawFile.name})
-  return false
+  store.filePaths.push({key: "", value: rawFile.name});
+  return false;
 }
 </script>
 
@@ -80,11 +89,13 @@ function beforeUpload(rawFile: UploadRawFile) {
         v-model:value="store.filePaths"
         preset="pair"
         :key-placeholder="t('filePathKeyDesc')"
-        :value-placeholder="t('filePathValueDesc')"
-        :min="1"
-    />
+        :value-placeholder="t('filePathValueDesc')">
+      <template #create-button-default>
+        {{ t("toAddNewFile") }}
+      </template>
+    </n-dynamic-input>
 
-    <el-divider />
+    <el-divider/>
 
     <el-form :model="store.formData">
       <el-form-item :label="t('exportMode')">

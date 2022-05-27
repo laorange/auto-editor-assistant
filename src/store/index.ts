@@ -44,7 +44,7 @@ function joinFilePath(filePath: FilePath) {
 export const useStore = defineStore('store', {
     state(): State {
         return {
-            filePaths: [{key: "", value: ""}],
+            filePaths: [],
             formData: {
                 frameMargin: 2,
                 exportMode: "premiere",
