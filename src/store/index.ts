@@ -89,7 +89,7 @@ export const useStore = defineStore('store', {
             } else if (this.formData.silentThreshold === 0 && this.formData.motionThreshold !== 0) {
                 return `--edit motion:threshold=${this.formData.motionThreshold}%`
             } else {
-                return `--edit 'audio:threshold=${this.formData.silentThreshold}% or motion:threshold=${this.formData.motionThreshold}%'`;
+                return `--edit "audio:threshold=${this.formData.silentThreshold}% or motion:threshold=${this.formData.motionThreshold}%"`;
             }
         },
         exportModeCmd(): string {
