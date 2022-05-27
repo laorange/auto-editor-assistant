@@ -1,7 +1,16 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 
-const {t, locale} = useI18n()
+const {t, locale} = useI18n();
+
+function handleSwitchLanguage() {
+  switch (locale.value) {
+    case "zh":
+      return locale.value = "en";
+    case "en":
+      return locale.value = "zh";
+  }
+}
 </script>
 
 <template>
@@ -9,23 +18,29 @@ const {t, locale} = useI18n()
     <h1>
       <a href="https://auto-editor.com/"><span id="header-span-auto">Auto</span><span id="header-span-editor">-Editor</span></a>-{{ t("title") }}
     </h1>
-    <img src="../assets/switchLanguage.svg" alt="switchLanguage.svg" id="switch-language-svg"
-         @click="locale = locale==='zh' ? 'en' : 'zh'"/>
+    <n-button @click="handleSwitchLanguage">
+      <template #icon>
+        <img style="height: 16px" src="../assets/switchLanguage.svg" alt="switchLanguage.svg" id="switch-language-svg"/>
+      </template>
+      {{ t("switchLanguage") }}
+    </n-button>
   </header>
 </template>
 
 <style scoped>
 header {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 #switch-language-svg {
   height: 30px;
   cursor: pointer;
-  margin-left: 20px;
+  margin-right: 20px;
   justify-self: end;
 }
 

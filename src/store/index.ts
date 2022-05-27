@@ -1,5 +1,9 @@
 import {defineStore} from "pinia";
-import {FilePath} from "../types";
+
+export interface FilePath {
+    key: string,
+    value: string,
+}
 
 type State = {
     filePaths: FilePath[],
@@ -15,33 +19,33 @@ type State = {
 }
 
 function joinFilePath(filePath: FilePath) {
-    let key = filePath.key
-    let value = filePath.value
+    let key = filePath.key;
+    let value = filePath.value;
 
-    key = key.replace('/', '\\')
-    if (key.endsWith('\\')) {
-        key = key.slice(0, -1)
+    key = key.replace("/", "\\");
+    if (key.endsWith("\\")) {
+        key = key.slice(0, -1);
     }
     if (key.length) {
-        key = key + "\\"
+        key = key + "\\";
     }
 
     // 默认后缀Mp4
     if (value.search(/\.\w+$/) === -1) {
-        value += '.mp4'
+        value += ".mp4";
     }
 
-    let path = `${key}${value}`
+    let path = `${key}${value}`;
 
     // 如果路径中有空格，需要对路径加引号
     if (key.search(/\s/) > -1 || value.search(/\s/) > -1) {
-        path = `"${path}"`
+        path = `"${path}"`;
     }
 
     return path;
 }
 
-export const useStore = defineStore('store', {
+export const useStore = defineStore("store", {
     state(): State {
         return {
             filePaths: [],
@@ -53,72 +57,72 @@ export const useStore = defineStore('store', {
                 whetherOpenAfterFinished: false,
                 whetherUseGpuAcceleration: true,
             },
-        }
+        };
     },
     getters: {
         inputFilesCmd(): string {
-            let processedFilePathStrArray: string[] = []
+            let processedFilePathStrArray: string[] = [];
 
             this.filePaths.reduce((lastOne: undefined | FilePath, thisOne) => {
                 // 如果上一条有文件夹路径，这条有文件名但没文件夹路径，那这条的文件夹路径沿用上一条的
                 if (lastOne?.key && !thisOne.key && thisOne.value) {
-                    thisOne.key = lastOne.key
+                    thisOne.key = lastOne.key;
                 }
-                processedFilePathStrArray.push(joinFilePath(thisOne))
-                return thisOne
-            }, undefined)
+                processedFilePathStrArray.push(joinFilePath(thisOne));
+                return thisOne;
+            }, undefined);
 
-            return processedFilePathStrArray.join(" ")
+            return processedFilePathStrArray.join(" ");
         },
         whetherFilePathIsValid(): boolean {
             for (const filePath of this.filePaths) {
                 if (!filePath.value.length) {
-                    return false
+                    return false;
                 }
             }
-            return true
+            return true;
         },
         frameMarginCmd(): string {
-            return `--frame-margin ${this.formData.frameMargin}`
+            return `--frame-margin ${this.formData.frameMargin}`;
         },
         editCmd(): string {
             if (this.formData.silentThreshold === 0 && this.formData.motionThreshold === 0) {
-                return "--edit none"
+                return "--edit none";
             } else if (this.formData.silentThreshold !== 0 && this.formData.motionThreshold === 0) {
-                return `--silent-threshold ${this.formData.silentThreshold}%`
+                return `--silent-threshold ${this.formData.silentThreshold}%`;
             } else if (this.formData.silentThreshold === 0 && this.formData.motionThreshold !== 0) {
-                return `--edit motion:threshold=${this.formData.motionThreshold}%`
+                return `--edit motion:threshold=${this.formData.motionThreshold}%`;
             } else {
                 return `--edit "audio:threshold=${this.formData.silentThreshold}% or motion:threshold=${this.formData.motionThreshold}%"`;
             }
         },
         exportModeCmd(): string {
-            return `--export ${this.formData.exportMode}`
+            return `--export ${this.formData.exportMode}`;
         },
         noOpenCmd(): string {
-            return !this.formData.whetherOpenAfterFinished ? "--no-open" : ""
+            return !this.formData.whetherOpenAfterFinished ? "--no-open" : "";
         },
-        useGpuAccelerationCmd():string{
-            return !!this.formData.whetherUseGpuAcceleration ? "--my-ffmpeg" : ""
+        useGpuAccelerationCmd(): string {
+            return !!this.formData.whetherUseGpuAcceleration ? "--my-ffmpeg" : "";
         },
         videoQualityScaleCmd() {
-            return "--video-quality-scale 1"
+            return "--video-quality-scale 1";
         },
         command() {
-            let cmdList: string[] = ["auto-editor"]
+            let cmdList: string[] = ["auto-editor"];
             // 文件名
-            cmdList.push(this.inputFilesCmd)
-            cmdList.push(this.frameMarginCmd)
-            cmdList.push(this.editCmd)
-            cmdList.push(this.exportModeCmd)
-            cmdList.push(this.videoQualityScaleCmd)
-            cmdList.push(this.noOpenCmd)
-            cmdList.push(this.useGpuAccelerationCmd)
+            cmdList.push(this.inputFilesCmd);
+            cmdList.push(this.frameMarginCmd);
+            cmdList.push(this.editCmd);
+            cmdList.push(this.exportModeCmd);
+            cmdList.push(this.videoQualityScaleCmd);
+            cmdList.push(this.noOpenCmd);
+            cmdList.push(this.useGpuAccelerationCmd);
 
             return cmdList.reduce((r: string[], cmd) => {
-                if (cmd.length) r.push(cmd)
-                return r
-            }, []).join(" ")
+                if (cmd.length) r.push(cmd);
+                return r;
+            }, []).join(" ");
         },
-    }
-})
+    },
+});
