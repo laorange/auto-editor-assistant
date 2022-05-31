@@ -1,16 +1,16 @@
-## 自动剪辑程序-指令生成器
+## Auto-Editor-Assistant
 
-> Auto-Editor-Assistant
+> 自动剪辑程序-指令生成器
 
 Languages: 简体中文 & English
 
 You can get started through:
 
-+ [https://laorange.github.io/auto-editor-assistant/](https://gitee.com/link?target=https%3A%2F%2Flaorange.github.io%2Fauto-editor-assistant%2F)
++ [https://laorange.github.io/auto-editor-assistant/](https://laorange.github.io/auto-editor-assistant/)
 
 Or use the mirror on Gitee:
 
-+ http://laorange.gitee.io/auto-editor-assistant/
++ [http://laorange.gitee.io/auto-editor-assistant/](http://laorange.gitee.io/auto-editor-assistant/)
 
 ----
 
@@ -29,6 +29,4 @@ You can select these Auto-Editor's options with this repo’s site:
 
 ---
 
-![demo.png](/public/demo-zh.png)
-
-![demo.png](/public/demo-en.png)
+![demo.png](/public/demo.png)

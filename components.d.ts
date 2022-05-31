@@ -20,7 +20,6 @@ declare module '@vue/runtime-core' {
     NButton: typeof import('naive-ui')['NButton']
     NCode: typeof import('naive-ui')['NCode']
     NDynamicInput: typeof import('naive-ui')['NDynamicInput']
-    NIcon: typeof import('naive-ui')['NIcon']
     NPopover: typeof import('naive-ui')['NPopover']
     NSelect: typeof import('naive-ui')['NSelect']
   }
