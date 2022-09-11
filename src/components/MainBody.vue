@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useStore} from "../store";
+import {useStore} from "../store/useStore";
 import {Pointer} from "@element-plus/icons-vue";
 import ClipboardJS from "clipboard";
 import {UploadRawFile} from "element-plus";

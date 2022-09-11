@@ -1,4 +1,4 @@
-import {useStore} from "../store";
+import {useStore} from "../store/useStore";
 import {watch} from "vue";
 import {useStorage} from "vue3-storage";
 

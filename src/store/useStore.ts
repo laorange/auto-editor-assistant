@@ -15,6 +15,7 @@ type State = {
         motionThreshold: number,
         whetherOpenAfterFinished: boolean,
         whetherUseGpuAcceleration: boolean,
+        language: "en" | "zh"
     }
 }
 
@@ -56,6 +57,7 @@ export const useStore = defineStore("store", {
                 motionThreshold: 0,
                 whetherOpenAfterFinished: false,
                 whetherUseGpuAcceleration: false,
+                language: "en",
             },
         };
     },

@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
+import {useStore} from "../store/useStore";
+import {watch} from "vue";
 
 const {t, locale} = useI18n();
+const store = useStore();
+
+watch(() => store.formData.language, (newLanguage) => locale.value = newLanguage, {immediate: true});
 
 function handleSwitchLanguage() {
   switch (locale.value) {
     case "zh":
-      return locale.value = "en";
+      return store.formData.language = "en";
     case "en":
-      return locale.value = "zh";
+      return store.formData.language = "zh";
   }
 }
 </script>
