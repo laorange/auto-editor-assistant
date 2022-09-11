@@ -15,6 +15,7 @@ type State = {
         motionThreshold: number,
         whetherOpenAfterFinished: boolean,
         whetherUseGpuAcceleration: boolean,
+        multipleToOne: boolean,
         language: "en" | "zh"
     }
 }
@@ -57,6 +58,7 @@ export const useStore = defineStore("store", {
                 motionThreshold: 0,
                 whetherOpenAfterFinished: false,
                 whetherUseGpuAcceleration: false,
+                multipleToOne: false,
                 language: "en",
             },
         };
@@ -110,21 +112,26 @@ export const useStore = defineStore("store", {
         videoQualityScaleCmd() {
             return "--video-quality-scale 1";
         },
-        command() {
-            let cmdList: string[] = ["auto-editor"];
-            // 文件名
-            cmdList.push(this.inputFilesCmd);
-            cmdList.push(this.frameMarginCmd);
-            cmdList.push(this.editCmd);
-            cmdList.push(this.exportModeCmd);
-            cmdList.push(this.videoQualityScaleCmd);
-            cmdList.push(this.noOpenCmd);
-            cmdList.push(this.useGpuAccelerationCmd);
+        commands() {
+            let commands: string[] = [];
 
-            return cmdList.reduce((r: string[], cmd) => {
-                if (cmd.length) r.push(cmd);
-                return r;
-            }, []).join(" ");
+            let filePathStrings: string[] = this.formData.multipleToOne ? [this.inputFilesCmd] : this.filePaths.map(fp => joinFilePath(fp));
+
+            for (const filePathString of filePathStrings) {
+                let cmdList: string[] = ["auto-editor"];
+                // 文件名
+                cmdList.push(filePathString);
+                cmdList.push(this.frameMarginCmd);
+                cmdList.push(this.editCmd);
+                cmdList.push(this.exportModeCmd);
+                cmdList.push(this.videoQualityScaleCmd);
+                cmdList.push(this.noOpenCmd);
+                cmdList.push(this.useGpuAccelerationCmd);
+
+                let command = cmdList.filter(_ => !!_).join(" ");
+                commands.push(command);
+            }
+            return commands.join("\n");
         },
     },
 });

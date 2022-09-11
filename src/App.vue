@@ -11,9 +11,11 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <header-component/>
-  <main-body/>
-  <footer-component/>
+  <n-message-provider>
+    <header-component/>
+    <main-body/>
+    <footer-component/>
+  </n-message-provider>
 </template>
 
 <style>

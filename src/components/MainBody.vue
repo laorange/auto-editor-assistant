@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {useStore} from "../store/useStore";
 import {Pointer} from "@element-plus/icons-vue";
-import ClipboardJS from "clipboard";
 import {UploadRawFile} from "element-plus";
 import {computed} from "vue";
 import {useI18n} from "vue-i18n";
+import useClipboard from "vue-clipboard3";
+import {useMessage} from "naive-ui";
 
 const store = useStore();
+const {toClipboard} = useClipboard();
+const message = useMessage();
 
 const {t} = useI18n({
   messages: {
@@ -28,6 +31,8 @@ const {t} = useI18n({
       chooseFileText: "拖拽文件 / 选择文件",
       chooseFileTip: "由于安全限制，您的文件不会被上传。因此，仅能获取到文件的名称",
 
+      multipleToOne: "合并输出为单个文件",
+
       exportModeDescription: {
         default: "剪辑后的视频",
         premiere: "xml文件(支持导入premiere/达芬奇等)",
@@ -35,7 +40,7 @@ const {t} = useI18n({
         "shotcut": "ShotCut格式",
         "json": "Json文件",
         "clip-sequence": "分别导出剪辑后的每个视频片段",
-      }
+      },
     },
     en: {
       toAddNewFile: "Add new file",
@@ -55,6 +60,8 @@ const {t} = useI18n({
       chooseFileText: "Drop file here / click to choose",
       chooseFileTip: "Due to security restrictions, your file will not be uploaded. Therefore, only the name of the file can be obtained",
 
+      multipleToOne: "Merge output as a single file",
+
       exportModeDescription: {
         default: "single video",
         premiere: "xml file(can be imported to Premiere, Sony Vegas, Davinci, etc)",
@@ -62,14 +69,10 @@ const {t} = useI18n({
         "shotcut": "for ShotCut",
         "json": "json file",
         "clip-sequence": "create many video clips that can be imported and manipulated like normal",
-      }
+      },
     },
   },
 });
-
-
-new ClipboardJS("#copy-button");
-
 
 const exportModeOptions = computed(() => [
   {
@@ -111,6 +114,11 @@ function beforeUpload(rawFile: UploadRawFile) {
   store.filePaths.push({key: "", value: rawFile.name});
   return false;
 }
+
+async function copyCommands() {
+  await toClipboard(store.commands);
+  message.success(t("copySuccessfully"));
+}
 </script>
 
 <template>
@@ -143,50 +151,52 @@ function beforeUpload(rawFile: UploadRawFile) {
       </template>
     </n-dynamic-input>
 
-    <el-divider/>
+    <template v-if="store.commands">
+      <el-divider/>
 
-    <el-form :model="store.formData">
-      <el-form-item :label="t('exportMode')">
-        <n-select v-model:value="store.formData.exportMode" :options="exportModeOptions"/>
-      </el-form-item>
+      <el-form :model="store.formData">
+        <el-form-item :label="t('exportMode')">
+          <n-select v-model:value="store.formData.exportMode" :options="exportModeOptions"/>
+        </el-form-item>
 
-      <el-form-item :label="t('silentThreshold')">
-        <el-slider v-model="store.formData.silentThreshold" show-input/>
-      </el-form-item>
+        <el-form-item :label="t('silentThreshold')">
+          <el-slider v-model="store.formData.silentThreshold" show-input/>
+        </el-form-item>
 
-      <el-form-item :label="t('motionThreshold')">
-        <el-slider v-model="store.formData.motionThreshold" show-input/>
-      </el-form-item>
+        <el-form-item :label="t('motionThreshold')">
+          <el-slider v-model="store.formData.motionThreshold" show-input/>
+        </el-form-item>
 
-      <el-form-item :label="t('frameMargin')">
-        <el-input-number v-model="store.formData.frameMargin" :min="0"/>
-      </el-form-item>
+        <el-form-item :label="t('frameMargin')">
+          <el-input-number v-model="store.formData.frameMargin" :min="0"/>
+        </el-form-item>
 
-      <el-form-item :label="t('whetherOpenAfterFinished')">
-        <el-switch v-model="store.formData.whetherOpenAfterFinished"/>
-      </el-form-item>
+        <el-form-item :label="t('whetherOpenAfterFinished')">
+          <el-switch v-model="store.formData.whetherOpenAfterFinished"/>
+        </el-form-item>
 
-      <el-form-item :label="t('whetherUseGpuAcceleration')">
-        <el-switch v-model="store.formData.whetherUseGpuAcceleration"/>
-      </el-form-item>
+        <el-form-item :label="t('whetherUseGpuAcceleration')">
+          <el-switch v-model="store.formData.whetherUseGpuAcceleration"/>
+        </el-form-item>
 
-    </el-form>
+        <el-form-item :label="t('multipleToOne')" v-if="store.filePaths.length>=2">
+          <el-switch v-model="store.formData.multipleToOne"/>
+        </el-form-item>
+      </el-form>
 
-    <n-code id="cmd" v-show="store.whetherFilePathIsValid">{{ store.command }}</n-code>
+      <n-code id="cmd"
+              :show-line-numbers="true" :inline="false"
+              :word-wrap="true"
+              :code="store.commands"/>
 
-    <n-popover trigger="click">
-      <template #trigger>
-        <el-button id="copy-button"
-                   size="large"
-                   :type="store.whetherFilePathIsValid?'success':'default'"
-                   data-clipboard-action="copy"
-                   data-clipboard-target="#cmd"
-                   :disabled="!store.whetherFilePathIsValid">
-          {{ store.whetherFilePathIsValid ? t("copyButtonText") : t("noticeToEnterFileName") }}
-        </el-button>
-      </template>
-      <span>{{ t("copySuccessfully") }}</span>
-    </n-popover>
+      <el-button id="copy-button"
+                 size="large"
+                 @click="copyCommands"
+                 :type="store.whetherFilePathIsValid?'success':'default'"
+                 :disabled="!store.whetherFilePathIsValid">
+        {{ store.whetherFilePathIsValid ? t("copyButtonText") : t("noticeToEnterFileName") }}
+      </el-button>
+    </template>
   </main>
 </template>
 
