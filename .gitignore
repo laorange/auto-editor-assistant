@@ -110,3 +110,9 @@ dist-ssr
 /.vscode/
 *.py
 dist/
+
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+auto-imports.d.ts
+components.d.ts

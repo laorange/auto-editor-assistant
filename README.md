@@ -4,13 +4,7 @@
 
 Languages: 简体中文 & English
 
-You can get started through:
-
-+ [https://laorange.github.io/auto-editor-assistant/](https://laorange.github.io/auto-editor-assistant/)
-
-Or use the mirror on Gitee:
-
-+ [http://laorange.gitee.io/auto-editor-assistant/](http://laorange.gitee.io/auto-editor-assistant/)
+You can get started through: [laorange.github.io/auto-editor-assistant/](https://laorange.github.io/auto-editor-assistant/)
 
 ----
 
