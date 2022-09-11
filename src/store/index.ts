@@ -37,12 +37,12 @@ function joinFilePath(filePath: FilePath) {
 
     let path = `${dir}${fileName}`;
 
-    // 如果路径中有空格，需要对路径加引号
-    if (dir.search(/\s/) > -1 || fileName.search(/\s/) > -1) {
-        path = `"${path}"`;
-    }
+    // // 如果路径中有空格，需要对路径加引号
+    // if (dir.search(/\s/) > -1 || fileName.search(/\s/) > -1) {
+    //     path = `"${path}"`;
+    // }
 
-    return path;
+    return `"${path}"`;
 }
 
 export const useStore = defineStore("store", {
