@@ -91,7 +91,7 @@ export const useStore = defineStore("store", {
             if (this.formData.silentThreshold === 0 && this.formData.motionThreshold === 0) {
                 return "--edit none";
             } else if (this.formData.silentThreshold !== 0 && this.formData.motionThreshold === 0) {
-                return `--silent-threshold ${this.formData.silentThreshold}%`;
+                return `--edit audio:threshold=${this.formData.silentThreshold}%`;
             } else if (this.formData.silentThreshold === 0 && this.formData.motionThreshold !== 0) {
                 return `--edit motion:threshold=${this.formData.motionThreshold}%`;
             } else {
