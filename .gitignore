@@ -110,7 +110,3 @@ dist-ssr
 /.vscode/
 *.py
 dist/
-
-pnpm-lock.yaml
-yarn.lock
-package-lock.json
