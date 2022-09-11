@@ -19,26 +19,26 @@ type State = {
 }
 
 function joinFilePath(filePath: FilePath) {
-    let key = filePath.key;
-    let value = filePath.value;
+    let dir = filePath.key;
+    let fileName = filePath.value;
 
-    key = key.replace("/", "\\");
-    if (key.endsWith("\\")) {
-        key = key.slice(0, -1);
+    dir = dir.replace("/", "\\");
+    if (dir.endsWith("\\")) {
+        dir = dir.slice(0, -1);
     }
-    if (key.length) {
-        key = key + "\\";
+    if (dir.length) {
+        dir = dir + "\\";
     }
 
     // 默认后缀Mp4
-    if (value.search(/\.\w+$/) === -1) {
-        value += ".mp4";
+    if (fileName.search(/\.\w+$/) === -1) {
+        fileName += ".mp4";
     }
 
-    let path = `${key}${value}`;
+    let path = `${dir}${fileName}`;
 
     // 如果路径中有空格，需要对路径加引号
-    if (key.search(/\s/) > -1 || value.search(/\s/) > -1) {
+    if (dir.search(/\s/) > -1 || fileName.search(/\s/) > -1) {
         path = `"${path}"`;
     }
 
