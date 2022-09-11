@@ -55,7 +55,7 @@ export const useStore = defineStore("store", {
                 silentThreshold: 4,
                 motionThreshold: 0,
                 whetherOpenAfterFinished: false,
-                whetherUseGpuAcceleration: true,
+                whetherUseGpuAcceleration: false,
             },
         };
     },

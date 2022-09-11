@@ -2,13 +2,18 @@
 import MainBody from "./components/MainBody.vue";
 import HeaderComponent from "./components/HeaderComponent.vue";
 import FooterComponent from "./components/FooterComponent.vue";
+import useLocalStorage from "./assets/useLocalStorage";
+import {onBeforeMount} from "vue";
 
+onBeforeMount(() => {
+  useLocalStorage();
+});
 </script>
 
 <template>
-  <header-component></header-component>
-  <main-body></main-body>
-  <footer-component></footer-component>
+  <header-component/>
+  <main-body/>
+  <footer-component/>
 </template>
 
 <style>
